@@ -1,12 +1,12 @@
-package com.sanket.project.dao;
+package com.sanket.project.service;
 
 import java.util.List;
 
 import com.sanket.project.model.User;
 
-public interface UserDao {
+public interface UserService {
 
-	int storeUser(User user);
+int storeUser(User user);
 	
 	User getUser(int userId);
 	
