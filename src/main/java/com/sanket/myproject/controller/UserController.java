@@ -122,7 +122,7 @@ public class UserController {
 //			else {
 //				model.put("failed", "Login Failed");
 			logger.error("Login failed!!");
-				return "login";
+				return "home";
 //			}
 		} else {
 			User urs = (User) session.getAttribute("user");
@@ -135,7 +135,7 @@ public class UserController {
 	@RequestMapping(value = "/loginsuccess", method = RequestMethod.GET)
 	public String showLoginSuccess(ModelMap model) {
 		model.put("success", new User());
-		return "dashboard";
+		return "dashboard/dashboard";
 	}
 	
 	@RequestMapping(value="/logout", method= RequestMethod.GET)
