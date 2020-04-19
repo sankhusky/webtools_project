@@ -6,7 +6,7 @@ import com.sanket.myproject.model.User;
 
 public interface UserService {
 
-int storeUser(User user);
+	int storeUser(User user);
 	
 	User getUser(int userId);
 	

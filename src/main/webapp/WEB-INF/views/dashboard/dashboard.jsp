@@ -14,7 +14,9 @@
   <a class="active" href="#dashboard">Dashboard</a>
   <a href="#profile">Profile</a>
   <a href="#about">About</a>
-  <a href="#logout">Logout</a>
+  <a href="#logout" class="logout">Logout</a>
+  
+  <button id="createfab">Create</button>
 </div> 
 
 </body>

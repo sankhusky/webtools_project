@@ -25,3 +25,15 @@
   background-color: #4CAF50;
   color: white;
 }
+
+.logout { 
+	float:right;
+}
+
+#createfab{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    margin: 20px;
+    padding:20px; 
+}

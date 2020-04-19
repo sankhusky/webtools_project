@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /*
  * package com.sanket.project.model;
@@ -26,9 +29,16 @@ import javax.persistence.Table;
 		  
 		  @Column(name="project_name") private String projectName;
 		  
-		  @Column(name="user_id") private String userId;
+//		  @Column(name="user_id") 
+//		  private String userId;
 		  
-		  @Column(name="created_on") private String createdOn;
+		  @ManyToOne
+		  @JoinColumn(name = "user_id")
+		  private User user;
+
+		  
+		  @Transient
+		  private String createdOn;
 		  
 		  @Column(name="project_description") private String projectDescription;
 		  
@@ -51,10 +61,10 @@ import javax.persistence.Table;
 		  public void setProjectName(String projectName) { this.projectName =
 		  projectName; }
 		  
-		  public String getUserId() { return userId; }
-		  
-		  public void setUserId(String userId) { this.userId = userId; }
-		  
+//		  public String getUserId() { return userId; }
+//		  
+//		  public void setUserId(String userId) { this.userId = userId; }
+//		  
 		  public String getCreatedOn() { return createdOn; }
 		  
 		  public void setCreatedOn(String createdOn) { this.createdOn = createdOn; }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sanket.myproject.account.UserLoginValidator;
 import com.sanket.myproject.model.User;
@@ -133,9 +135,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/loginsuccess", method = RequestMethod.GET)
-	public String showLoginSuccess(ModelMap model) {
+	public ModelAndView showLoginSuccess(ModelMap model, HttpServletRequest request) {
 		model.put("success", new User());
-		return "dashboard/dashboard";
+		String referer = request.getHeader("referer");
+	    return new ModelAndView("redirect:" + referer + "dashboard", model);
+//		return "redirect:myproject/dashboard";
 	}
 	
 	@RequestMapping(value="/logout", method= RequestMethod.GET)
