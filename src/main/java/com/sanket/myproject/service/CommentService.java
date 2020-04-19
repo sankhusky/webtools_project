@@ -1,11 +1,11 @@
-package com.sanket.myproject.dao;
+package com.sanket.myproject.service;
 
 import java.util.List;
 
 import com.sanket.myproject.model.Comment;
 
-public interface CommentDao {
-
+public interface CommentService {
+	
 	int saveComment(Comment comment);
 	
 	Comment getComment(int commentId);
@@ -15,4 +15,5 @@ public interface CommentDao {
 	void updateComment(int commentId, Comment comment);
 	
 	void deleteComment(int commentId);
+
 }

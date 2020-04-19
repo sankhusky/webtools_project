@@ -58,6 +58,8 @@ public class User {
    @OneToMany(mappedBy="user")
    private Set<Project> projects;
    
+   @OneToMany (mappedBy="user")
+   private Set<Comment> comments;
    
    public int getUserId() {
        return userId;
@@ -141,6 +143,23 @@ public String getUserType() {
 
 public void setUserType(String userType) {
 	this.userType = userType;
+}
+
+
+public Set<Project> getProjects() {
+	return projects;
+}
+
+public void setProjects(Set<Project> projects) {
+	this.projects = projects;
+}
+
+public Set<Comment> getComments() {
+	return comments;
+}
+
+public void setComments(Set<Comment> comments) {
+	this.comments = comments;
 }
 
 @Override

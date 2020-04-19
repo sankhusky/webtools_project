@@ -1,5 +1,7 @@
 package com.sanket.myproject.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,8 +40,11 @@ import javax.persistence.Transient;
 		  private User user;
 
 		  
-		  @Transient
+		  @Column(name="created_on", insertable=false)
 		  private String createdOn;
+		  
+		  @OneToMany(mappedBy="project")		  
+		  private Set<Comment> comments;
 		  
 		  @Column(name="project_description") private String projectDescription;
 		  
@@ -95,6 +101,33 @@ import javax.persistence.Transient;
 		  
 		  public void setSubmittedOn(String submittedOn) { this.submittedOn =
 		  submittedOn; }
+
+		  
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		public boolean isActive() {
+			return isActive;
+		}
+
+		public void setActive(boolean isActive) {
+			this.isActive = isActive;
+		}
+
+		public Set<Comment> getComments() {
+			return comments;
+		}
+
+		public void setComments(Set<Comment> comments) {
+			this.comments = comments;
+		}
+		  
+		  
 		  
 		  
 		  
