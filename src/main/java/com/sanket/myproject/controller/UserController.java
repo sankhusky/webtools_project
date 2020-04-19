@@ -58,10 +58,10 @@ public class UserController {
 //		UserValidator userValidator = new UserValidator();
 //		userValidator.validate(userValidator, br);
 		logger.info("inside registerUser");
-//		if (br.hasErrors()) {
-//			logger.error("validation error--" + br.getFieldError().getDefaultMessage());
-//			return "registration";
-//		} else {
+		if (br.hasErrors()) {
+			logger.error("validation error--" + br.getFieldError().getDefaultMessage());
+			return "registration";
+		} else {
 			User realUser = new User();
 			realUser.setUserName(user.getUserName());
 			realUser.setPassword(user.getPassword());
@@ -71,7 +71,7 @@ public class UserController {
 			session.setAttribute("user", realUser);
 			logger.info("registration successful");
 			return "redirect:regsuccess";
-//		}
+		}
 	}
 
 	@RequestMapping(value = "/regsuccess", method = RequestMethod.GET)
