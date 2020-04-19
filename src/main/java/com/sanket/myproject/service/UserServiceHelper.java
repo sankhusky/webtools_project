@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sanket.myproject.account.BCryptUtils;
 //import com.sanket.myproject.account.BCryptUtils;
 import com.sanket.myproject.dao.UserDao;
 import com.sanket.myproject.model.User;
@@ -25,7 +26,7 @@ public class UserServiceHelper implements UserService {
 	@Override
 	@Transactional
 	public int storeUser(User user) {	
-//		user.setPassword(BCryptUtils.hashPassword(user.getPassword()));
+		user.setPassword(BCryptUtils.hashPassword(user.getPassword()));
 		return userDao.storeUser(user);
 	}
 
