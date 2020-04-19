@@ -32,7 +32,7 @@
 
 <div class="container">
 
-	<form:form commandName="userData" action = "${contextPath}/registration" method="POST">
+	<form:form action = "${contextPath}/user/register" method="POST" modelAttribute="userData">
 		
 		Username: 
 		<form:input path="userName" />
@@ -42,6 +42,20 @@
 		<form:input path="email" />
 		<form:errors path="email" cssStyle="color:red"/>
 		<br>
+		
+		<label for="userType">User Type:</label>
+		
+		<select id="userType">
+		
+		  <option value="student">Student</option>
+		  <option value="instructor">Course Instructor</option>
+		  <option value="ta">Teacher's Assistant</option>
+		  
+		  	<%-- <form:options items="${userTypeList}"/> --%>
+		  			  
+		</select> 
+		<%-- <form:errors path="userType" cssStyle="color:red"/> --%>
+		<br>
 		Password:
 		<form:input path="password"/>
 		<form:errors path="password" cssStyle="color:red"/>
@@ -50,7 +64,10 @@
 		<form:input path="passwordConfirm"/>
 		<form:errors path="passwordConfirm" cssStyle="color:red"/>
 		<br>
+		
+		
 		<input type="submit" value="Register User"/>
+		
 	</form:form> 
 
 

@@ -8,11 +8,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sanket.myproject.account.BCryptUtils;
 import com.sanket.myproject.model.User;
 
 @Repository
+@Transactional
 public class UserDAOHelper implements UserDao {
 
 	@Autowired
@@ -20,18 +22,8 @@ public class UserDAOHelper implements UserDao {
 	
 	@Override
 	public int storeUser(User user) {
-		try {
-		sessionFactory.getCurrentSession().beginTransaction();
 		sessionFactory.getCurrentSession().save(user);
-		sessionFactory.getCurrentSession().getTransaction().commit();
 		return user.getUserId();
-		} catch (HibernateException e) {
-            e.printStackTrace();
-            sessionFactory.getCurrentSession().getTransaction().rollback();
-        } finally {
-        	sessionFactory.getCurrentSession().close();
-        }
-		return -1;
 	}
 
 	@Override
@@ -52,7 +44,7 @@ public class UserDAOHelper implements UserDao {
 		if(user.getUserName()!=null && !user.getUserName().isEmpty())
 			oldUser.setUserName(user.getUserName());	
 		
-		oldUser.setIsActive(user.isIsActive());
+//		oldUser.setIsActive(user.isIsActive());
 		
 		if(user.getPassword()!=null && !user.getPassword().isEmpty())
 			oldUser.setPassword(user.getPassword());

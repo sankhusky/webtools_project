@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource("classpath:database.properties")
-//@EnableTransactionManagement
+@EnableTransactionManagement
 @ComponentScans(value= {
 		@ComponentScan("com.sanket.myproject.dao"),
 		@ComponentScan("com.sanket.myproject.service")

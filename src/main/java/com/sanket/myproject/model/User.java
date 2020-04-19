@@ -6,9 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;;
+import javax.validation.constraints.Size;;
 
 /**
 *
@@ -27,26 +27,32 @@ public class User {
    @Column(name="user_type_id")
    private int userTypeId;
    
-   @NotEmpty
+   @NotNull
+   @Size(min=2,max=30)
    @Column(name="user_name")
    private String userName;
    
-   @NotEmpty
+   @NotNull
    @Column(name="email")
    private String email;
    
-   @NotEmpty
+   @NotNull
    @Column(name="password")
    private String password;
    
-   @NotNull
-   @Column(name="created_on")
+//   @Column(name="created_on")
+   @Transient
    private String createdOn;
    
    @Column(name="is_active")
    private boolean isActive;
-
+  
+   @Transient
    private String passwordConfirm; 
+   @Transient
+   private String userType;
+   
+   
    
    public int getUserId() {
        return userId;
@@ -120,6 +126,16 @@ public String getPasswordConfirm() {
 
 public void setPasswordConfirm(String passwordConfirm) {
 	this.passwordConfirm = passwordConfirm;
+}
+
+
+
+public String getUserType() {
+	return userType;
+}
+
+public void setUserType(String userType) {
+	this.userType = userType;
 }
 
 @Override
