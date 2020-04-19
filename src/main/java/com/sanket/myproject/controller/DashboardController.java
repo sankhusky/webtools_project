@@ -27,8 +27,8 @@ public class DashboardController {
 	
 	@RequestMapping(value="/dashboard", method=RequestMethod.GET)
 	public String displayMainDashboard(ModelMap model, HttpSession session) {
-//		List<Project> allProjects = projectService.getAllProjects();
-//		model.put("projectList", allProjects);
+		List<Project> allProjects = projectService.getAllProjects();
+		model.put("projectList", allProjects);
 		return "dashboard/dashboard"; 
 	}
 	
