@@ -43,18 +43,18 @@
   <c:forEach items="${projectList}" var="item">
     
 
-	<div class="panel panel-default">
+	<div class="panel panel-default" style="width: 600px; margin:50px auto" >
   <div class="panel-heading">
-    <h3 class="panel-title">${item.projectName}</h3>
+    <h2 class="panel-title">${item.projectName}</h2>
   </div>
   <div class="panel-body">
-  <div class="username"> ${item.getUser().getUserName() }</div> <!-- userName --> 	
-    <div class="timestamp">Created ${item.createdOn }</div> <!-- "Created" + project's created date -->
-  		<p class="description">${item.projectDescription}</p> <!-- project description -->
+  <div class="username"><b>Name:</b> ${item.getUser().getUserName() }</div> <!-- userName --> 	
+    <div class="timestamp"> <b>Created at:</b> ${item.createdOn }</div> <!-- "Created" + project's created date -->
+  		<p class="description"> <b>Description: </b>${item.projectDescription}</p> <!-- project description -->
   </div>
   
-   <div class="panel-footer"><div class="stars"> ${item.getStars() }</div>
-  			<div class=comments><%--  ${item.getComments().size() }  --%>Comment</div></div>
+   <div class="panel-footer"><div class="stars"><b>Stars:</b> ${item.getStars() }</div>
+  			<div class=comments> <br> ${item.getComments().size() }  Comments </div></div>
 </div>
 
   

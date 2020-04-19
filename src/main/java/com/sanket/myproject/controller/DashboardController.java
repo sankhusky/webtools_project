@@ -1,6 +1,8 @@
 package com.sanket.myproject.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -31,6 +33,8 @@ public class DashboardController {
 	
 	@Autowired
 	private ProjectValidator projectValidator;
+	
+	Map<Integer, String> userTypeMap;
 	
 	private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 	
@@ -75,6 +79,18 @@ public class DashboardController {
 			return "project_views/createsuccess";
 		}
 	
+		
+	}
+	
+	@RequestMapping( value= "/dashboard/profile", method=RequestMethod.GET)
+	public String openProfile(ModelMap model, HttpSession session) {
+		userTypeMap = new HashMap<Integer,String>();
+		userTypeMap.put( 1,"Student");
+		userTypeMap.put( 2,"Teacher Assistant");
+		userTypeMap.put(3,"Course Instructor" );
+		model.put("userTypes", userTypeMap);
+		model.put("projectCount", ((User) session.getAttribute("user")).getProjects().size());
+		 return "dashboard/profile";
 		
 	}
 	

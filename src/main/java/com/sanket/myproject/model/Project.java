@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ import javax.persistence.Transient;
 		  @Column(name="created_on", insertable=false)
 		  private String createdOn;
 		  
-		  @OneToMany(mappedBy="project")		  
+		  @OneToMany(mappedBy="project", fetch = FetchType.EAGER)		  
 		  private Set<Comment> comments;
 		  
 		  @Column(name="project_description") private String projectDescription;
