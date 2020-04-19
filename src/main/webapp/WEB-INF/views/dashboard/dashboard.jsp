@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +12,16 @@
 </head>
 <body>
 
- <div class="topnav">
+
+ <nav class="topnav">
   <a class="active" href="#dashboard">Dashboard</a>
-  <a href="#profile">Profile</a>
-  <a href="#about">About</a>
-  <a href="#logout" class="logout">Logout</a>
-  </div> 
-  <button id="createfab">Create</button>
+  <a href="${contextPath}/dashboard/profile">Profile</a>
+  <a href="${contextPath}/dashboard/about">About</a>
+  <a href="${contextPath}/user/logout" class="logout">Logout</a>
+  </nav> 
+  
+  <div id="createfab"><a href="${contextPath}/dashboard/createproject">Create Project</a></div>
+  <%-- <button id="createfab" onclick="${contextPath}/dashboard/createproject" >Create</button>  <!--ADD THIS onclick="location.href='/register.htm'" value="Register" --> --%>
   
   
   <c:forEach items="${projectList}" var="item">

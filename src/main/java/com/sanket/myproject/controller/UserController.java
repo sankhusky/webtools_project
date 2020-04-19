@@ -138,6 +138,7 @@ public class UserController {
 	public ModelAndView showLoginSuccess(ModelMap model, HttpServletRequest request) {
 		model.put("success", new User());
 		String referer = request.getHeader("referer");
+		logger.info("referer:"+ referer);
 	    return new ModelAndView("redirect:" + referer + "dashboard", model);
 //		return "redirect:myproject/dashboard";
 	}
@@ -145,7 +146,7 @@ public class UserController {
 	@RequestMapping(value="/logout", method= RequestMethod.GET)
 	public String logout(ModelMap model, HttpSession session) {
 		session.removeAttribute("user");
-		return "redirect:login";
+		return "home";
 	}
 
 }
