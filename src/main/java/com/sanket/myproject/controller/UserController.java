@@ -68,6 +68,7 @@ public class UserController {
 //		UserValidator userValidator = new UserValidator();
 //		userValidator.validate(userValidator, br);
 		logger.info("inside registerUser");
+		//TODO check for preexisting user
 		if (br.hasErrors()) {
 			logger.error("validation error--" + br.getFieldError().getDefaultMessage());
 			return "registration";
@@ -77,6 +78,7 @@ public class UserController {
 			realUser.setPassword(user.getPassword());
 			realUser.setEmail(user.getEmail());
 			realUser.setUserTypeId(userTypeMap.get(user.getUserType()));
+			realUser.setIsActive(true);
 			userService.storeUser(realUser);
 			logger.info("Saving user: "+realUser.toString());
 			session.setAttribute("user", realUser);
@@ -105,17 +107,27 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String doLogin(ModelMap model, @ModelAttribute("userData") User user, HttpSession session) {
+		
+		logger.info("you entered: " + user.toString());
 		if (user.getUserName() != null && user.getPassword() != null && session.getAttribute("user") == null) {
-			userService.loginUser(user);
+			logger.info("New login, validating...");
+			user = userService.loginUser(user);
+//			logger.info("validation done, returned user:"+ user==null ? "null" : user.toString());
 			if (user != null) {
+				logger.info("Login successful");
 				session.setAttribute("user", user);
 				return "redirect:loginsuccess";
-			} 
+			}
+			logger.info("user object still not found.. ptobably an invalid input");
 //			else {
 //				model.put("failed", "Login Failed");
+			logger.error("Login failed!!");
 				return "login";
 //			}
 		} else {
+			User urs = (User) session.getAttribute("user");
+			logger.info("User already logged in");
+			logger.info(urs.toString());
 			return "redirect:loginsuccess";
 		}
 	}
@@ -123,7 +135,7 @@ public class UserController {
 	@RequestMapping(value = "/loginsuccess", method = RequestMethod.GET)
 	public String showLoginSuccess(ModelMap model) {
 		model.put("success", new User());
-		return "loginSuccess";
+		return "dashboard";
 	}
 	
 	@RequestMapping(value="/logout", method= RequestMethod.GET)

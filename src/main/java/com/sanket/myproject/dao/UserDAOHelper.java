@@ -63,11 +63,11 @@ public class UserDAOHelper implements UserDao {
 
 	@Override
 	public User loginUser(User user) {
-		String hql = "FROM users WHERE user_name = :userName";
+		String hql = "FROM User WHERE user_name = :userName";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setParameter("userName", user.getUserName());
 		List<User> userList = query.list();
-		if(userList!=null) {
+		if(userList!=null && userList.size()>0) {
 			User returnedUser = userList.get(0);
 			if(BCryptUtils.checkPass(user.getPassword(), returnedUser.getPassword())) {
 				return returnedUser;
