@@ -23,7 +23,7 @@ public class UserLoginValidator implements Validator{
 	
 	@Override
     public boolean supports(Class<?> clazz) {
-        return true; // always true
+        return true; 
     }
 
 	@Override
@@ -42,6 +42,11 @@ public class UserLoginValidator implements Validator{
 	            Pattern.CASE_INSENSITIVE);
 	      if (!(pattern.matcher(user.getEmail()).matches())) {
 	         errors.rejectValue("email", "user.email.invalid");
+	      }
+	      
+	      if(!user.getPassword().equals(user.getPasswordConfirm())) {
+	    	  errors.rejectValue("password", "user.passwords.unequal");
+	    	  errors.rejectValue("passwordConfirm", "user.passwords.unequal");
 	      }
 
 	   }

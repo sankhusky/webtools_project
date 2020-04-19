@@ -4,6 +4,7 @@ public class UserLogin {
 
 	private String userName;
 	private String password, passwordConfirm, email;
+	private String userType;
 	public String getUserName() {
 		return userName;
 	}
@@ -27,6 +28,12 @@ public class UserLogin {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 }

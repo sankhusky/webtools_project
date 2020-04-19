@@ -45,16 +45,16 @@
 		
 		<label for="userType">User Type:</label>
 		
-		<select id="userType">
+		<form:select path="userType">
 		
-		  <option value="student">Student</option>
-		  <option value="instructor">Course Instructor</option>
-		  <option value="ta">Teacher's Assistant</option>
+		 <%--  <form:option value="student">Student</form:option>
+		  <form:option value="instructor">Course Instructor</form:option>
+		  <form:option value="ta">Teacher's Assistant</form:option> --%>
 		  
-		  	<%-- <form:options items="${userTypeList}"/> --%>
+		  	<form:options items="${userTypeList}"/>
 		  			  
-		</select> 
-		<%-- <form:errors path="userType" cssStyle="color:red"/> --%>
+		</form:select> 
+		<form:errors path="userType" cssStyle="color:red"/>
 		<br>
 		Password:
 		<form:input path="password"/>

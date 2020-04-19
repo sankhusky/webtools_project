@@ -1,7 +1,9 @@
 package com.sanket.myproject.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -36,6 +38,8 @@ public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	Map<String,Integer> userTypeMap;
+	
 	 @InitBinder
 	   protected void initBinder(WebDataBinder binder) {
 	      binder.addValidators(userLoginValidator);
@@ -48,6 +52,12 @@ public class UserController {
 		userTypeList.add("Student");
 		userTypeList.add("Course Instructor");
 		userTypeList.add("Teacher Assistant");
+		
+		userTypeMap = new HashMap<String,Integer>();
+		userTypeMap.put("Student", 1);
+		userTypeMap.put("Teacher Assistant", 2);
+		userTypeMap.put("Course Instructor", 3);
+//		userTypeMap.put("Strudent", 1);
 		model.put("userTypeList", userTypeList);
 		return "registration";
 	}
@@ -66,6 +76,7 @@ public class UserController {
 			realUser.setUserName(user.getUserName());
 			realUser.setPassword(user.getPassword());
 			realUser.setEmail(user.getEmail());
+			realUser.setUserTypeId(userTypeMap.get(user.getUserType()));
 			userService.storeUser(realUser);
 			logger.info("Saving user: "+realUser.toString());
 			session.setAttribute("user", realUser);
