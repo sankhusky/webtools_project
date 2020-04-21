@@ -59,13 +59,13 @@ public class DashboardController {
 	public String displayMainDashboard(ModelMap model, HttpSession session) {
 		List<Project> allProjects = projectService.getAllProjects();
 		model.put("projectList", allProjects);
-		return "dashboard/dashboard"; 
+		return filter(session,"dashboard/dashboard"); 
 	}
 	
 	@RequestMapping(value= "/dashboard/createproject", method=RequestMethod.GET)
 	public String showCreateProject(ModelMap model, HttpSession session) {
 		model.put("projectData", new Project());
-		return "project_views/createproject";
+		return filter(session, "project_views/createproject");
 		
 	}
 	
@@ -76,7 +76,7 @@ public class DashboardController {
 		if (br.hasErrors()) {
 			logger.error("validation error--" + br.getFieldError().getDefaultMessage());
 
-				return "project_views/createproject";
+				return filter(session, "project_views/createproject");
 
 		} else {
 			project.setCreatedOn(null);
@@ -88,7 +88,7 @@ public class DashboardController {
 			projectService.saveProject(project);
 			model.addAttribute("isNewProject", true);
 			logger.info("project added successfully");
-			return "project_views/createsuccess";
+			return filter(session,"project_views/createsuccess");
 		}
 	
 		
@@ -101,8 +101,10 @@ public class DashboardController {
 		userTypeMap.put( 2,"Teacher Assistant");
 		userTypeMap.put(3,"Course Instructor" );
 		model.put("userTypes", userTypeMap);
+		if(session.getAttribute("user")!=null) {
 		model.put("projectCount", ((User) session.getAttribute("user")).getProjects().size());
-		 return "dashboard/profile";
+		}
+		return filter(session,"dashboard/profile");
 		
 	}
 	
@@ -147,6 +149,16 @@ public class DashboardController {
 		 resp.put("starCount", String.valueOf(starCount));
 		 resp.put("cssClass", cssClass);
 		 return ResponseEntity.ok().body(response);
+	}
+	
+	private String filter(HttpSession session, String successPage) {
+		
+		boolean logout = Boolean.valueOf(String.valueOf(session.getAttribute("logout")));
+		if(logout) {
+			return "";
+		}else {
+			return successPage;
+		}
 	}
 	
 }

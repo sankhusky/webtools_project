@@ -160,6 +160,7 @@ public class UserController {
 			if (user != null) {
 				logger.info("Login successful");
 				session.setAttribute("user", user);
+				session.setAttribute("logout", false);
 				return "redirect:loginsuccess";
 			}
 			logger.info("user object still not found.. ptobably an invalid input");
@@ -188,6 +189,7 @@ public class UserController {
 	@RequestMapping(value="/logout", method= RequestMethod.GET)
 	public String logout(ModelMap model, HttpSession session) {
 		session.removeAttribute("user");
+		session.setAttribute("logout", true);
 		return "home";
 	}
 

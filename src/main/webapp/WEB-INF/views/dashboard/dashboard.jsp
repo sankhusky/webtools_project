@@ -3,6 +3,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%
+response.setHeader("pragma", "no-cache");              
+response.setHeader("Cache-control", "no-cache, no-store, must-revalidate");             
+response.setHeader("Expires", "0"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +23,7 @@
 </head>
 <body>
 
+	
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
  -->
 
@@ -36,6 +42,9 @@
   <li role="presentation"><a href="${contextPath}/user/logout">Logout</a></li>
 </ul>
   
+  
+  <h1 align="center">All Projects</h1>
+	<hr>
   <%-- <div id="createfab"><a href="${contextPath}/dashboard/createproject">Create Project</a></div>
   <button id="createfab" onclick="${contextPath}/dashboard/createproject" >Create</button>  <!--ADD THIS onclick="location.href='/register.htm'" value="Register" -->
    --%>
