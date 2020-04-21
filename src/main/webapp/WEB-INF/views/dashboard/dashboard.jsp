@@ -48,13 +48,13 @@
     <h2 class="panel-title">${item.getProjectName()}</h2>
   </div>
   <div class="panel-body">
-  <div class="username"><b>Name:</b> ${item.getUser().getUserName() }</div> <!-- userName --> 	
+  <div class="username"><b>Student Name:</b> ${item.getUser().getUserName() }</div> <!-- userName --> 	
     <div class="timestamp"> <b>Created at:</b> ${item.createdOn }</div> <!-- "Created" + project's created date -->
   		<p class="description"> <b>Description: </b>${item.projectDescription}</p> <!-- project description -->
   </div>
   
    <div class="panel-footer">
-   <button type="button" class="btn btn-default btn-lg btnStar ${item.getStarState(sessionScope.user.getUserId())}" id="${item.getProjectId()}" >
+   <button type="button" class="btn btn-default btn-lg btnStar ${item.getStarState(sessionScope.user.getUserId())}" style="font-size: 12px;" id="${item.getProjectId()}" >
   <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id="starCount">${item.getStars().size() }</span> Stars
 </button>
   			<div class=comments> <br> ${item.getComments().size() }  Comments </div></div>

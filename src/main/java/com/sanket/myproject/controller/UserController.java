@@ -1,11 +1,13 @@
 package com.sanket.myproject.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sanket.myproject.account.UserLoginValidator;
+import com.sanket.myproject.model.OTP;
 import com.sanket.myproject.model.User;
 import com.sanket.myproject.model.UserLogin;
 import com.sanket.myproject.service.UserService;
+import com.sanket.myproject.utils.EmailUtils;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -52,7 +56,7 @@ public class UserController {
 		model.put("userData", new UserLogin());
 		List<String> userTypeList = new ArrayList<String>();
 		userTypeList.add("Student");
-		userTypeList.add("Course Instructor");
+//		userTypeList.add("Course Instructor");
 		userTypeList.add("Teacher Assistant");
 		
 		userTypeMap = new HashMap<String,Integer>();
@@ -60,7 +64,7 @@ public class UserController {
 		userTypeMap.put("Teacher Assistant", 2);
 		userTypeMap.put("Course Instructor", 3);
 //		userTypeMap.put("Strudent", 1);
-		model.put("userTypeList", userTypeList);
+		model.put("userTypeList", userTypeList);		
 		return "registration";
 	}
 
@@ -73,6 +77,12 @@ public class UserController {
 		//TODO check for preexisting user
 		if (br.hasErrors()) {
 			logger.error("validation error--" + br.getFieldError().getDefaultMessage());
+//			model.put("userData", new UserLogin());
+			List<String> userTypeList = new ArrayList<String>();
+			userTypeList.add("Student");
+//			userTypeList.add("Course Instructor");
+			userTypeList.add("Teacher Assistant");
+			model.put("userTypeList", userTypeList);
 			return "registration";
 		} else {
 			User realUser = new User();
@@ -81,18 +91,50 @@ public class UserController {
 			realUser.setEmail(user.getEmail());
 			realUser.setUserTypeId(userTypeMap.get(user.getUserType()));
 			realUser.setIsActive(true);
-			userService.storeUser(realUser);
+			
 			logger.info("Saving user: "+realUser.toString());
 			session.setAttribute("user", realUser);
 			logger.info("registration successful");
-			return "redirect:regsuccess";
+			Integer otp=EmailUtils.sendOTP(user.getEmail());
+			if(otp!=-1) {
+				model.addAttribute("otp",new OTP());
+				session.setAttribute("otp", otp);
+				session.setAttribute("otp_time", new Date());
+				logger.info("otp set at approx"+new Date());
+				return "userconfirm";				
+			}else {
+				model.put("action","Registration");
+				return "errorpage";
+			}
 		}
 	}
 
-	@RequestMapping(value = "/regsuccess", method = RequestMethod.GET)
-	public String showSuccess(ModelMap model) {
-		model.put("success", new User());
-		return "registrationSuccess";
+	
+	@RequestMapping(value = "/regsuccess", method = RequestMethod.POST)
+	public String showSuccess(ModelMap model, @ModelAttribute("otpResponse") OTP otp, HttpSession session, HttpServletRequest req) {
+		logger.info("user entered:"+ otp.getOtp() );
+		logger.info(req.getParameter("otp"));
+		Date sendTime = (Date) session.getAttribute("otp_time");
+		Date now = new Date();
+		long diff = now.getTime() - sendTime.getTime();
+		long diffMinutes = diff / (60 * 1000) % 60;
+		logger.info("send time:"+ sendTime.toString() + " Enter time:"+now.toString()+", time difference="+diffMinutes+" min");
+		if(diffMinutes>30) {
+			model.put("action","Timely user confirmation");
+			return "errorpage";
+		}else {
+			int realOtp = (Integer) session.getAttribute("otp");
+			int otp2 =  Integer.parseInt(req.getParameter("otp"));
+			if(otp2==realOtp) {
+				model.put("success", new User());
+				User realUser = (User) session.getAttribute("user");
+				userService.storeUser(realUser);
+				return "registrationSuccess";				
+			}else {
+				model.put("action","OTP Verification");
+				return "errorpage";
+			}
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

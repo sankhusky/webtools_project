@@ -151,8 +151,11 @@
 			<version>8.0.19</version>
 		</dependency>
 		<!-- Jackson API for JSON -->
-		<dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
-			<version>2.8.7</version> </dependency> 
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.7</version>
+		</dependency>
 		<!-- Servlet Dependency -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -216,6 +219,19 @@
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
+		</dependency>
+
+		<!-- Apache commons email -->
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 	</dependencies>
 	<build>

@@ -1,4 +1,4 @@
-package com.sanket.myproject.account;
+package com.sanket.myproject.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 

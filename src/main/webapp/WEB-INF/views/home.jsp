@@ -46,8 +46,8 @@
 					placeholder="Password" /> <span>${error}</span>
 			</div>
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
+		<%-- 	<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> --%>
 
 			<div class="form-group">
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Log

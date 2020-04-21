@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sanket.myproject.account.BCryptUtils;
 import com.sanket.myproject.model.User;
+import com.sanket.myproject.utils.BCryptUtils;
 
 @Repository
 @Transactional

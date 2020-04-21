@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sanket.myproject.account.BCryptUtils;
 //import com.sanket.myproject.account.BCryptUtils;
 import com.sanket.myproject.dao.UserDao;
 import com.sanket.myproject.model.User;
+import com.sanket.myproject.utils.BCryptUtils;
 
 
 @Service

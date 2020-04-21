@@ -37,10 +37,12 @@ public class User {
    private String userName;
    
    @NotNull
+   @Size(min=5,max=200)
    @Column(name="email")
    private String email;
    
    @NotNull
+   @Size(min=7,max=90)
    @Column(name="password")
    private String password;
    
