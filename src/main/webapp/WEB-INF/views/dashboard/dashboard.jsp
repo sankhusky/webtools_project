@@ -45,7 +45,7 @@
 
 	<div class="panel panel-default" style="width: 600px; margin:50px auto" >
   <div class="panel-heading">
-    <h2 class="panel-title">${item.projectName}</h2>
+    <h2 class="panel-title">${item.getProjectName()}</h2>
   </div>
   <div class="panel-body">
   <div class="username"><b>Name:</b> ${item.getUser().getUserName() }</div> <!-- userName --> 	
@@ -53,9 +53,31 @@
   		<p class="description"> <b>Description: </b>${item.projectDescription}</p> <!-- project description -->
   </div>
   
-   <div class="panel-footer"><div class="stars"><b>Stars:</b> ${item.getStars() }</div>
+   <div class="panel-footer">
+   <button type="button" class="btn btn-default btn-lg btnStar ${item.getStarState(sessionScope.user.getUserId())}" id="${item.getProjectId()}" >
+  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id="starCount">${item.getStars().size() }</span> Stars
+</button>
   			<div class=comments> <br> ${item.getComments().size() }  Comments </div></div>
 </div>
+
+  </c:forEach>
+<script type="text/javascript">
+
+$(".btnStar").click(function(){
+
+	console.log($(this));
+	var projectId = $(this).attr('id');
+	  $.post("http://localhost:8080/myproject/dashboard/addstar",
+			  {pid: projectId},
+			  function(response){
+				  console.log("got response");      
+                  console.log(response);
+                  var btnId="#"+projectId; 
+                  $(btnId).find("#starCount").empty().append(response.starCount);
+                  $(btnId).toggleClass("star");
+              });
+	}); 
+    </script>
 
   
  <%--  <div class="post-container-outer">
@@ -74,7 +96,7 @@
   		</div>
   	</div>
   </div> --%>
-  </c:forEach>
+
 
 </body>
 </html>

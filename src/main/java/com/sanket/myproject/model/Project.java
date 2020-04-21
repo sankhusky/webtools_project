@@ -12,20 +12,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-/*
- * package com.sanket.project.model;
- * 
- *//**
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.sanket.myproject.controller.DashboardController;
+import com.sanket.myproject.service.StarService;
+
+/**
 	 *
 	 * @author Sanket NUID 001086416
 	 */
+
+	
 		  
 		  @Entity
 		  
 		  @Table(name="projects") public class Project {
-		  
+			  
+//			  @Autowired
+//			  private StarService starService;
+//		  
+			  private static final Logger logger = LoggerFactory.getLogger(Project.class);
 		  @Id		  
 		  @GeneratedValue(strategy= GenerationType.IDENTITY)
 		  @Column(name="project_id")
@@ -47,13 +56,16 @@ import javax.persistence.Transient;
 		  @OneToMany(mappedBy="project", fetch = FetchType.EAGER)		  
 		  private Set<Comment> comments;
 		  
+		  @OneToMany(mappedBy="project", fetch = FetchType.EAGER)		  
+		  private Set<Star> stars;
+		  
 		  @Column(name="project_description") private String projectDescription;
 		  
 		  @Column(name="link") private String link;
 		  
 		  @Column(name="is_active") private boolean isActive;
 		  
-		  @Column(name="stars") private int stars;
+		  
 		  
 		  @Column(name="instructor_id") private int instructorId;
 		  
@@ -88,10 +100,7 @@ import javax.persistence.Transient;
 		  public boolean isIsActive() { return isActive; }
 		  
 		  public void setIsActive(boolean isActive) { this.isActive = isActive; }
-		  
-		  public int getStars() { return stars; }
-		  
-		  public void setStars(int stars) { this.stars = stars; }
+		  		
 		  
 		  public int getInstructorId() { return instructorId; }
 		  
@@ -127,8 +136,55 @@ import javax.persistence.Transient;
 		public void setComments(Set<Comment> comments) {
 			this.comments = comments;
 		}
+
+		public Set<Star> getStars() {
+			return stars;
+		}
+
+		public void setStars(Set<Star> stars) {
+			this.stars = stars;
+		}
+
+		
+		public int getStarCount() {
+			return this.stars.size();
+		}
+	/*
+	 * @Override public String toString() { return "Project [projectId=" + projectId
+	 * + ", projectName=" + projectName + ", user=" + user + ", createdOn=" +
+	 * createdOn + ", comments=" + comments + ", stars=" + stars +
+	 * ", projectDescription=" + projectDescription + ", link=" + link +
+	 * ", isActive=" + isActive + ", instructorId=" + instructorId +
+	 * ", submittedOn=" + submittedOn + "]"; }
+	 */
 		  
 		  
+		public String getStarState(int userId) {
+			String state = "";
+
+			for(Star str: this.stars) {
+				if(str.getUser().getUserId()==userId) {
+					state = "star";
+					break;
+				}
+			}
+			logger.info("Star state for project id : "+ this.projectId  +", "+ " user:"+userId+" ="+state);
+//			if(starService.getStar(this.projectId, userId)!=null) {
+//				state="star";
+//			}
+			return state;
+		}
+
+		public Star getStar(int userId) {
+			Star resultStr=null;
+			for(Star str: this.stars) {
+				if(str.getUser().getUserId()==userId) {
+					resultStr = str;
+					break;
+				}
+			}
+			return resultStr;			
+		}
 		  
 		  
 		  

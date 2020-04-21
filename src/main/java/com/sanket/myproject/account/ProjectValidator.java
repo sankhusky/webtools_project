@@ -40,7 +40,7 @@ public class ProjectValidator implements Validator {
 		if(proj.getLink()==null && proj.getLink().isEmpty()) {
 			proj.setLink("NA");
 		}
-		proj.setStars(0);
+//		proj.setStars(0);
 		proj.setSubmittedOn("NA");
 		proj.setUser(new User());
 	}

@@ -62,6 +62,9 @@ public class User {
    @OneToMany (mappedBy="user", fetch = FetchType.EAGER)
    private Set<Comment> comments;
    
+   @OneToMany (mappedBy="user", fetch= FetchType.EAGER) 
+   private Set<Star> stars;
+   
    public int getUserId() {
        return userId;
    }
@@ -163,11 +166,27 @@ public void setComments(Set<Comment> comments) {
 	this.comments = comments;
 }
 
+
+
+public Set<Star> getStars() {
+	return stars;
+}
+
+public void setStars(Set<Star> stars) {
+	this.stars = stars;
+}
+
+public int getStarsCount() {
+	return this.stars.size();
+}
 @Override
 public String toString() {
-	return "User [userId=" + userId + ", userTypeId=" + userTypeId + ", userName=" + userName + ", password=" + password
-			+ ", createdOn=" + createdOn + ", isActive=" + isActive + "]";
+	return "User [userId=" + userId + ", userTypeId=" + userTypeId + ", userName=" + userName + ", email=" + email
+			+ ", password=" + password + ", createdOn=" + createdOn + ", isActive=" + isActive + ", passwordConfirm="
+			+ passwordConfirm + ", userType=" + userType + "]";
 }
+
+
    
    
    

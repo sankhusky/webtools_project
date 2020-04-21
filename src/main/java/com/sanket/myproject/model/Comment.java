@@ -18,7 +18,13 @@ import javax.persistence.Table;
 		  
 		  @Table(name="comments") public class Comment {
 		  
-		  @Id		 
+		  @Override
+	public String toString() {
+		return "Comment [commentId=" + commentId + ", comment=" + comment + ", user=" + user + ", project=" + project
+				+ "]";
+	}
+
+		@Id		 
 		  @GeneratedValue(strategy= GenerationType.IDENTITY)
 		  @Column(name="comment_id")
 		  private int commentId;
