@@ -66,7 +66,10 @@ response.setHeader("Expires", "0");
    <button type="button" class="btn btn-default btn-lg btnStar ${item.getStarState(sessionScope.user.getUserId())}" style="font-size: 12px;" id="${item.getProjectId()}" >
   <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span id="starCount">${item.getStars().size() }</span> Stars
 </button>
-  			<div class=comments> <br> ${item.getComments().size() }  Comments </div></div>
+  			<%-- <div class="text-right"> <br> ${item.getComments().size() }  Comments </div> --%>
+  	
+  	<a href=${item.getLink()} style="float:right;" ><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>		
+	</div>
 </div>
 
   </c:forEach>

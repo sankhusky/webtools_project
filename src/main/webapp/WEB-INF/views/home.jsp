@@ -43,7 +43,7 @@
 
 			<div class="form-group">
 				<input name="password" type="password" class="form-control"
-					placeholder="Password" /> <span>${error}</span>
+					placeholder="Password" /> 
 			</div>
 
 		<%-- 	<input type="hidden" name="${_csrf.parameterName}"
@@ -60,6 +60,28 @@
 		</form>
 
 	</div>
+	
+	
+	
+	<c:choose>
+  <c:when test="${empty error}">
+  	<div class="alert alert-info alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Hi!</strong>Please Enter your credentials!
+</div>
+  
+  </c:when>
+
+  <c:otherwise>
+	
+	<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Error!</strong> ${errorMsg}
+	</div>
+  </c:otherwise>
+ </c:choose>
+	
+	
 	<!-- /container -->
 	<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script> --%>

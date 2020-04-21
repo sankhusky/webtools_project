@@ -154,6 +154,13 @@ public class UserController {
 		
 		logger.info("you entered: " + user.toString());
 		if (user.getUserName() != null && user.getPassword() != null && session.getAttribute("user") == null) {
+			
+			if(user.getUserName().isEmpty() || user.getPassword().isEmpty()){
+				model.addAttribute("error", 1);
+				model.addAttribute("errorMsg", "Please type in username and password both!!");
+				
+				return "home";
+			}
 			logger.info("New login, validating...");
 			user = userService.loginUser(user);
 //			logger.info("validation done, returned user:"+ user==null ? "null" : user.toString());
@@ -166,6 +173,8 @@ public class UserController {
 			logger.info("user object still not found.. ptobably an invalid input");
 //			else {
 //				model.put("failed", "Login Failed");
+			model.addAttribute("error", 1);
+			model.addAttribute("errorMsg", "Please type correct username and password!!");
 			logger.error("Login failed!!");
 				return "home";
 //			}
@@ -182,7 +191,7 @@ public class UserController {
 		model.put("success", new User());
 		String referer = request.getHeader("referer");
 		logger.info("referer:"+ referer);
-	    return new ModelAndView("redirect:" + referer + "dashboard", model);
+	    return new ModelAndView("redirect:http://localhost:8080/myproject/dashboard", model);
 //		return "redirect:myproject/dashboard";
 	}
 	
